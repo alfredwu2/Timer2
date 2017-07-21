@@ -30,31 +30,35 @@ class TimerTableViewCell: UITableViewCell {
     
     @IBAction func startButtonTapped(_ sender: Any) {
         if let task = viewController?.tasks[(indexPath?.row)!] {
-            
             if task.timerIsRunning {
                 task.timer.invalidate()
                 task.timerIsRunning = false
+                task.pauseDate = Date()
             } else {
                 task.start()
                 task.timerIsRunning = true
+                task.pauseDate = nil
             }
         }
         
         // reload the table view row
         viewController?.tableView.reloadRows(at: [indexPath!], with: .none)
+        viewController?.updateAggregateLabel()
     }
     
     @IBAction func resetButtonTapped(_ sender: Any) {
         if let task = viewController?.tasks[(indexPath?.row)!] {
-            task.elapsed = 0
+            task.startDate = nil
+            task.pauseDate = nil
             task.timer.invalidate()
             task.timerIsRunning = false
+            task.adjustment = 0
         }
         
         // reload the table view row
         viewController?.tableView.reloadRows(at: [indexPath!], with: .none)
+        viewController?.updateAggregateLabel()
     }
-    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

@@ -11,12 +11,26 @@ import UIKit
 class Task: Equatable {
     
     var viewController: TimerListTableViewController
+    var detailViewController: TimerDetailViewController?
     var title: String
-    var elapsed: Int = 0
+    var elapsed: Int {
+        if let startDate = startDate {
+            if let pauseDate = pauseDate {
+                return Int(pauseDate.timeIntervalSince1970 - startDate.timeIntervalSince1970) + adjustment
+            } else {
+                return Int(-startDate.timeIntervalSinceNow) + adjustment
+            }
+        } else {
+            return adjustment
+        }
+    }
     var max: Int
+    var adjustment: Int = 0
     var timer: Timer = Timer()
     var timerIsRunning = false
     var color: UIColor
+    var startDate: Date?
+    var pauseDate: Date?
 
     init(title: String, max: Int, color: UIColor, _ viewController: TimerListTableViewController) {
         self.title = title
@@ -47,18 +61,19 @@ class Task: Equatable {
     
     func start() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(Task.tick), userInfo: self, repeats: true)
+        
+        if let _ = pauseDate {
+            startDate = Date() - TimeInterval(elapsed - adjustment)
+        } else {
+            startDate = Date()
+        }
     }
     
     @objc func tick() {
         viewController.tick(timer: timer)
-    }
-    
-    func format(_ seconds: Int) -> String {
-        let hour = seconds / 3600
-        let minute = seconds / 60 % 60
-        let second = seconds % 60
-        
-        return String(format: "%01i:%02i:%02i", hour, minute, second)
+        if let detailViewController = detailViewController {
+            detailViewController.tick()
+        }
     }
     
     // implements Equatable protocol

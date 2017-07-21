@@ -15,6 +15,8 @@
 		9E3A3FE61F1AC2F60051BCF5 /* TimerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A3FE51F1AC2F60051BCF5 /* TimerTableViewCell.swift */; };
 		9E3A3FE81F1AC3050051BCF5 /* TotalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A3FE71F1AC3050051BCF5 /* TotalTableViewCell.swift */; };
 		9E3A3FEC1F1ADFCA0051BCF5 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A3FEB1F1ADFCA0051BCF5 /* Task.swift */; };
+		9E3A40101F1FCA840051BCF5 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3A400F1F1FCA840051BCF5 /* Utility.swift */; };
+		9EB81C211F216B13001C5F68 /* TimerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB81C201F216B13001C5F68 /* TimerDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		9E3A3FE51F1AC2F60051BCF5 /* TimerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTableViewCell.swift; sourceTree = "<group>"; };
 		9E3A3FE71F1AC3050051BCF5 /* TotalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalTableViewCell.swift; sourceTree = "<group>"; };
 		9E3A3FEB1F1ADFCA0051BCF5 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		9E3A400F1F1FCA840051BCF5 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		9EB81C201F216B13001C5F68 /* TimerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,7 @@
 				9E3A3FD51F1ABEA10051BCF5 /* Assets.xcassets */,
 				9E3A3FD71F1ABEA10051BCF5 /* LaunchScreen.storyboard */,
 				9E3A3FDA1F1ABEA10051BCF5 /* Info.plist */,
+				9E3A400F1F1FCA840051BCF5 /* Utility.swift */,
 			);
 			path = Timer2;
 			sourceTree = "<group>";
@@ -76,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				9E3A3FE11F1AC16A0051BCF5 /* TimerListTableViewController.swift */,
+				9EB81C201F216B13001C5F68 /* TimerDetailViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -170,8 +176,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EB81C211F216B13001C5F68 /* TimerDetailViewController.swift in Sources */,
 				9E3A3FCF1F1ABEA10051BCF5 /* AppDelegate.swift in Sources */,
 				9E3A3FE21F1AC16A0051BCF5 /* TimerListTableViewController.swift in Sources */,
+				9E3A40101F1FCA840051BCF5 /* Utility.swift in Sources */,
 				9E3A3FEC1F1ADFCA0051BCF5 /* Task.swift in Sources */,
 				9E3A3FE81F1AC3050051BCF5 /* TotalTableViewCell.swift in Sources */,
 				9E3A3FE61F1AC2F60051BCF5 /* TimerTableViewCell.swift in Sources */,
@@ -340,6 +348,7 @@
 				9E3A3FDF1F1ABEA10051BCF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

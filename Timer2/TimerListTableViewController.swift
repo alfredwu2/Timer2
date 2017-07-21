@@ -11,24 +11,29 @@ import UIKit
 class TimerListTableViewController: UITableViewController {
 
     
+    
     @IBOutlet weak var aggregateLabel: UILabel!
 
     var tasks: [Task] = []
-    
-    var totalElapsed: Int {
+    var totalElapsed: String {
         var sum = 0
         for task in tasks {
-            sum += task.elapsed
+            if task.elapsed > task.max {
+                sum += task.max
+            } else {
+                sum += task.elapsed
+            }
         }
-        return sum
+        
+        return format(sum)
     }
-    
-    var totalMax: Int {
+    var totalMax: String {
         var sum = 0
         for task in tasks {
             sum += task.max
         }
-        return sum
+        
+        return format(sum)
     }
     
     override func viewDidLoad() {
@@ -40,12 +45,18 @@ class TimerListTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        tasks = [
-            Task(title: "Studying", max: 65, color: .init(red: 0.5, green: 0.25, blue: 0.8, alpha: 0.5), self),
-            Task(title: "Programming", max: 205, color: .init(red: 1, green: 0.5, blue: 0, alpha: 0.5), self),
-            Task(title: "R&D", max: 30, color: .init(red: 0, green: 1, blue: 0, alpha: 0.5), self)
-        ]
+        let alpha: CGFloat = 0.3
         
+        tasks = [
+            Task(title: "Studying", max: 70, color: .init(red: 0, green: 0, blue: 1, alpha: alpha), self),
+            Task(title: "Programming", max: 210, color: .init(red: 1, green: 0.5, blue: 0, alpha: alpha), self),
+            Task(title: "R&D", max: 30, color: .init(red: 0, green: 1, blue: 0, alpha: alpha), self),
+            Task(title: "'Normal' practice", max: 30, color: .init(red: 0.3, green: 0.3, blue: 0.3, alpha: alpha), self),
+            Task(title: "Journal", max: 20, color: .init(red: 1, green: 0, blue: 0, alpha: alpha), self),
+            Task(title: "Art", max: 20, color: .init(red: 1, green: 0, blue: 1, alpha: alpha), self)
+        ]
+
+        updateAggregateLabel()
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,12 +67,15 @@ class TimerListTableViewController: UITableViewController {
     func tick(timer: Timer) {
         
         let task = timer.userInfo as! Task
-        task.elapsed += 1
         
         let indexPath = IndexPath(row: tasks.index(of: task)!, section: 0)
-        
         self.tableView.reloadRows(at: [indexPath], with: .none)
-        aggregateLabel.
+        updateAggregateLabel()
+        
+    }
+    
+    func updateAggregateLabel() {
+        aggregateLabel.text = "\(totalElapsed) / \(totalMax)"
     }
     
     // MARK: - Table view data source
@@ -75,7 +89,7 @@ class TimerListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80;
+        return 90;
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,10 +106,30 @@ class TimerListTableViewController: UITableViewController {
         cell.setVC(self)
         cell.backgroundColor = task.color
         
+        if task.elapsed > task.max {
+            cell.titleLabel.textColor = UIColor.lightGray
+            cell.timerLabel.textColor = UIColor.lightGray
+            cell.maxLabel.textColor = UIColor.lightGray
+        } else {
+            cell.titleLabel.textColor = UIColor.black
+            cell.timerLabel.textColor = UIColor.black
+            cell.maxLabel.textColor = UIColor.black
+        }
+        
         return cell
     }
-    
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! TimerDetailViewController
+                
+        if let row = tableView.indexPathForSelectedRow?.row {
+            let task = tasks[row]
+            task.detailViewController = destination
+            destination.task = task
+            destination.timerListTableViewController = self
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
