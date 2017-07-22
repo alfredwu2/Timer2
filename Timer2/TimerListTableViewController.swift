@@ -15,7 +15,7 @@ class TimerListTableViewController: UITableViewController {
     @IBOutlet weak var aggregateLabel: UILabel!
 
     var tasks: [Task] = []
-    var totalElapsed: String {
+    var totalElapsed: Int {
         var sum = 0
         for task in tasks {
             if task.elapsed > task.max {
@@ -25,15 +25,15 @@ class TimerListTableViewController: UITableViewController {
             }
         }
         
-        return format(sum)
+        return sum
     }
-    var totalMax: String {
+    var totalMax: Int {
         var sum = 0
         for task in tasks {
             sum += task.max
         }
         
-        return format(sum)
+        return sum
     }
     
     override func viewDidLoad() {
@@ -75,7 +75,7 @@ class TimerListTableViewController: UITableViewController {
     }
     
     func updateAggregateLabel() {
-        aggregateLabel.text = "\(totalElapsed) / \(totalMax)"
+        aggregateLabel.text = "\(format(totalElapsed)) / \(format(totalMax))"
     }
     
     // MARK: - Table view data source
@@ -89,7 +89,7 @@ class TimerListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90;
+        return 80;
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

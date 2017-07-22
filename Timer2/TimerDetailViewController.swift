@@ -44,6 +44,7 @@ class TimerDetailViewController: UIViewController {
         tick()
         if let timerListTableViewController = timerListTableViewController {
             timerListTableViewController.tableView.reloadData()
+            timerListTableViewController.updateAggregateLabel()
         }
     }
     
@@ -54,6 +55,7 @@ class TimerDetailViewController: UIViewController {
         tick()
         if let timerListTableViewController = timerListTableViewController {
             timerListTableViewController.tableView.reloadData()
+            timerListTableViewController.updateAggregateLabel()
         }
     }
     
@@ -64,6 +66,7 @@ class TimerDetailViewController: UIViewController {
         tick()
         if let timerListTableViewController = timerListTableViewController {
             timerListTableViewController.tableView.reloadData()
+            timerListTableViewController.updateAggregateLabel()
         }
     }
     
@@ -74,6 +77,7 @@ class TimerDetailViewController: UIViewController {
         tick()
         if let timerListTableViewController = timerListTableViewController {
             timerListTableViewController.tableView.reloadData()
+            timerListTableViewController.updateAggregateLabel()
         }
     }
     
